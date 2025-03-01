@@ -50,7 +50,7 @@ def shangchun(name):
         print(f"上传异常: {str(e)}")
 
 def main():
-    model = whisper.load_model("small", device="cpu")
+    model = whisper.load_model("medium", device="cpu")
     
     result = model.transcribe(
         "output.mp3",
