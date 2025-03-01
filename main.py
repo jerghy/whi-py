@@ -5,7 +5,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 
 
-url = "https://chogo.teracloud.jp/dav/documents/output.mp3"
+url = "https://chogo.teracloud.jp/dav/documents/output2.mp3"
 auth = HTTPBasicAuth("ThomasXie", "43rKo29cev5Uzbyp")
 
 response = requests.get(url, auth=auth)
