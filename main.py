@@ -1,21 +1,28 @@
 import whisper
-import os
+from datetime import datetime
+
+def format_time(seconds):
+    # 将秒转换为 HH:MM:SS 格式
+    hours = int(seconds // 3600)
+    minutes = int((seconds % 3600) // 60)
+    sec = seconds % 60
+    return f"{hours:02d}:{minutes:02d}:{sec:06.3f}".replace(".", ",")  # 兼容srt格式
 
 def main():
-    # 初始化模型
     model = whisper.load_model("small", device="cpu")
     
-    # 执行语音识别
     result = model.transcribe(
         "demo.m4a",
         language="zh",
         fp16=False,
-        verbose=False  # 在CI中关闭详细输出
+        verbose=False
     )
     
-    # 保存结果
     with open("result.txt", "w", encoding="utf-8") as f:
-        f.write(result["text"])
+        for segment in result["segments"]:
+            start = format_time(segment["start"])
+            end = format_time(segment["end"])
+            f.write(f"[{start} --> {end}] {segment['text'].strip()}\n\n")
     
     print("转换完成！")
 
