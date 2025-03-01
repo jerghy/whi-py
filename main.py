@@ -4,7 +4,7 @@ from datetime import datetime
 import requests
 from requests.auth import HTTPBasicAuth
 
-mp3name="output.mp3"
+mp3name="output2.mp3"
 url = "https://chogo.teracloud.jp/dav/documents/"+mp3name
 auth = HTTPBasicAuth("ThomasXie", "43rKo29cev5Uzbyp")
 
