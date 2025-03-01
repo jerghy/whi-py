@@ -1,0 +1,41 @@
+name: Whisper Transcription
+
+on: [push]
+
+jobs:
+  transcribe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15  # 根据音频长度调整
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ffmpeg
+
+    - name: Install Python packages
+      run: |
+        pip install openai-whisper ffmpeg-python
+
+    - name: Cache whisper models
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/whisper
+        key: ${{ runner.os }}-whisper-small
+
+    - name: Run transcription
+      run: python main.py
+
+    - name: Upload result
+      uses: actions/upload-artifact@v3
+      with:
+        name: transcription-result
+        path: result.txt
