@@ -5,7 +5,7 @@ on: [push]
 jobs:
   transcribe:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 360
     
     steps:
     - name: Checkout code
