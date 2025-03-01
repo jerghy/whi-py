@@ -23,7 +23,7 @@ jobs:
 
     - name: Install Python packages
       run: |
-        pip install openai-whisper ffmpeg-python
+        pip install openai-whisper ffmpeg-python webdavclient3
 
     - name: Cache whisper models
       uses: actions/cache@v3
