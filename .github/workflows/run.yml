@@ -5,7 +5,7 @@ on: [push]
 jobs:
   transcribe:
     runs-on: ubuntu-latest
-    timeout-minutes: 15  # 根据音频长度调整
+    timeout-minutes: 15
     
     steps:
     - name: Checkout code
@@ -35,7 +35,7 @@ jobs:
       run: python main.py
 
     - name: Upload result
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4  # 更新到v4版本
       with:
         name: transcription-result
         path: result.txt
