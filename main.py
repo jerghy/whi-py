@@ -1,5 +1,25 @@
 import whisper
 from datetime import datetime
+from webdav3.client import Client
+
+# 配置 WebDAV 连接
+options = {
+    'webdav_hostname': "https://chogo.teracloud.jp/dav/",
+    'webdav_login':    "ThomasXie",
+    'webdav_password': "43rKo29cev5Uzbyp",
+    # 'webdav_root':     "/files/"  # 服务器根路径（根据实际情况调整）
+}
+
+client = Client(options)
+remote_path = "/documents/output.mp3"
+downloaded_file = "output.mp3"
+try:
+    client.download(remote_path, downloaded_file)
+    print(f"下载成功: {remote_path} -> {downloaded_file}")
+except Exception as e:
+    print(f"下载失败: {str(e)}")
+
+
 
 def format_time(seconds):
     # 将秒转换为 HH:MM:SS 格式
@@ -12,7 +32,7 @@ def main():
     model = whisper.load_model("small", device="cpu")
     
     result = model.transcribe(
-        "demo.m4a",
+        "output.mp3",
         language="zh",
         fp16=False,
         verbose=False
